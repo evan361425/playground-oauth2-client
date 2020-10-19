@@ -1,0 +1,31 @@
+{
+  "name": "test-client",
+  "version": "1.0.0",
+  "description": "test client side of oAuth2",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evan361425/oAuth2ClientSideTesting.git"
+  },
+  "keywords": [
+    "auth"
+  ],
+  "author": "Evan Lu <wu0dj2k7ao3@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evan361425/oAuth2ClientSideTesting/issues"
+  },
+  "homepage": "https://github.com/evan361425/oAuth2ClientSideTesting#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "openid-client": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  }
+}
