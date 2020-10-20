@@ -6,6 +6,10 @@ pre(class="h5")= tokenSet
 h4 OPENID
 pre(class="h5")= openID
 
+a(class="my-2",href="/") Go Back Home
+
+hr
+
 div(class="row")
   div(class="col-12 col-sm-4")
     div(class="card my-2")
@@ -21,6 +25,3 @@ div(class="row")
     div(class="card")
       div(class="card-body")
         a(class="get-in-ajax", href="/revoke?token="+token) 撤銷token
-
-script
-  include ajax-get.js
