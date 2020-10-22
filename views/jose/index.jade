@@ -1,0 +1,166 @@
+.mb-2
+  a(href="/") Go Try oAuth2/OpenIDConnect
+ul.nav.nav-tabs(role="tablist")
+  li.nav-item(role="presentation")
+    a.nav-link.active#key-tab(data-toggle="tab", href="#key", role="tab", aria-control="key", aria-selected="true") Key
+  li.nav-item(role="presentation")
+    a.nav-link#gen-tab(data-toggle="tab", href="#gen", role="tab", aria-control="gen", aria-selected="false") Sign/Encrypt
+  li.nav-item(role="presentation")
+    a.nav-link#des-tab(data-toggle="tab", href="#des", role="tab", aria-control="des", aria-selected="false") Verify/Decrypt
+
+.tab-content
+  .tab-pane.py-2.fade.show.active#key(role="tabpanel", aria-labelledby="key-tab")
+    h4 Generate Key
+    form.row(action="/jose/generate", data-result="#keyResult", data-hidden=".keyHiddenOnly")
+      .col-4
+        select.custom-select.custom-select-lg#generateAlg(name="alg")
+          option(value="EC", selected) Elliptic Curve (Support JWS ECDSA)
+          option(value="RSA") RSA (Support JWS RSA Series)
+          option(value="OKP") Octet Key Pair (Support JWS EdDSA)
+            option(value="oct") Octet sequence (HMAC)
+      .col-4
+        #ECOptions
+          select.custom-select.custom-select-lg(name="EC")
+            option(disabled) EC Crypto Method
+            option(value="P-256" selected) P-256
+            option(value="P-384") P-384
+            option(value="P-521") P-521
+            option(value="secp256k1") secp256k1
+        #RSAOptions(style={display:'none'})
+          input.form-control.form-control-lg(
+            type="number"
+            value="2048"
+            min="2048"
+            step="1"
+            name="RSA"
+            placeholder="Input RSA Length")
+        #OKPOptions(style={display:'none'})
+          select.custom-select.custom-select-lg(name="OKP")
+            option(disabled) OKP Crypto Method
+            option(value="Ed25519" selected) Ed25519
+            option(value="Ed448") Ed448
+            option(value="X25519") X25519
+            option(value="X448") X448
+        #octOptions(style={display:'none'})
+          input.form-control.form-control-lg(
+            type="number"
+            value="256"
+            min="256"
+            step="1"
+            name="oct"
+            placeholder="OCT Length")
+      .col-4
+        button.btn.btn-primary.btn-lg(type="submit") Generate
+    #keyResult
+
+  .tab-pane.py-2.fade#gen(role="tabpanel", aria-labelledby="gen-tab")
+    form(action="/jose/build", data-result=".buildResult", data-hidden="#buildResultHidden")
+      .keyHiddenOnly
+
+      h4 Method
+      .form-group#buildTypes
+        .custom-control.custom-radio.custom-control-inline
+          input.custom-control-input#buildTypeJWS(type="radio", name="_type", value="jws", checked)
+          label.custom-control-label(for="buildTypeJWS") Sign It! (JWS)
+        .custom-control.custom-radio.custom-control-inline
+          input.custom-control-input#buildTypeJWE(type="radio", name="_type", value="jwe")
+          label.custom-control-label(for="buildTypeJWE") Encrypt It! (JWE)
+      .form-group
+        #buildJWSAlgOpts
+          .form-group
+            label JWS Algorithms
+            select.custom-select.custom-select-lg#generateAlg(name="jws_alg")
+              optgroup(label="RSASSA-PKCS1-v1_5")
+                option(value="RS256") RS256
+                option(value="RS384") RS384
+                option(value="RS512") RS512
+              optgroup(label="RSASSA-PSS")
+                option(value="PS256") PS256
+                option(value="PS384") PS384
+                option(value="PS512") PS512
+              optgroup(label="ECDSA")
+                option(value="ES256") ES256
+                option(value="ES256K") ES256K
+                option(value="ES384") ES384
+                option(value="ES512") ES512
+              optgroup(label="Edwards-curve DSA")
+                option(value="EdDSA") EdDSA
+              optgroup(label="HMAC with SHA-2")
+                option(value="HS256", selected) HS256
+                option(value="HS384") HS384
+                option(value="HS512") HS512
+          label Payload
+          ul.list-group.mb-2.border-primary.border#payloadInteraction
+            li.list-group-item
+              .form-row
+                .col
+                  input.form-control(name="_claim_key[]", placeholder="Claim Key" value="sub")
+                .col
+                  input.form-control(name="_claim_val[]", placeholder="Claim Value" value="EvanLu")
+                .col
+                  button.btn.btn-outline-danger.btn-block(type="button") -
+          button.btn.btn-block.btn-success#addPayload(type="button") +
+        #buildJWEAlgOpts(style={display:'none'})
+          .row.form-group
+            .col
+              label JWE Key Management Algorithms
+              select.custom-select.custom-select-lg(name="jwe_alg")
+                optgroup(label="AES")
+                  option(value="A128KW") A128KW
+                  option(value="A192KW") A192KW
+                  option(value="A256KW") A256KW
+                optgroup(label="AES GCM")
+                  option(value="A128KW") A128GCMKW
+                  option(value="A192KW") A192GCMKW
+                  option(value="A256KW") A256GCMKW
+                optgroup(label="Direct Key Agreement")
+                  option(value="A128KW") dir
+                optgroup(label="RSAES OAEP")
+                  option(value="RSA-OAEP") RSA-OAEP
+                  option(value="RSA-OAEP-256") RSA-OAEP-256
+                  option(value="RSA-OAEP-384") RSA-OAEP-384
+                  option(value="RSA-OAEP-512") RSA-OAEP-512
+                optgroup(label="RSAES-PKCS1-v1_5")
+                  option(value="RSA1_5") RSA1_5
+                optgroup(label="PBES2")
+                  option(value="PBES2-HS256+A128KW") PBES2-HS256+A128KW
+                  option(value="PBES2-HS384+A192KW") PBES2-HS384+A192KW
+                  option(value="PBES2-HS512+A256KW") PBES2-HS512+A256KW
+                optgroup(label="ECDH-ES")
+                  option(value="ECDH-ES", selected) ECDH-ES
+                  option(value="ECDH-ES+A128KW") ECDH-ES+A128KW
+                  option(value="ECDH-ES+A192KW") ECDH-ES+A192KW
+                  option(value="ECDH-ES+A256KW") ECDH-ES+A256KW
+            .col
+              label JWE Content Encryption Algorithms
+              select.custom-select.custom-select-lg#generateAlg(name="jwe_enc")
+                optgroup(label="AES GCM")
+                  option(value="A128GCM") A128GCM
+                  option(value="A192GCM") A192GCM
+                  option(value="A256GCM") A256GCM
+                optgroup(label="AES_CBC_HMAC_SHA2")
+                  option(value="A128CBC-HS256", selected) A128CBC-HS256
+                  option(value="A192CBC-HS384") A192CBC-HS384
+                  option(value="A256CBC-HS512") A256CBC-HS512
+          label Message
+          textarea.form-control(value="Message to encrypt..", name="_message")
+
+      button.btn.btn-info.btn-lg(type="submit") Generate
+
+      .buildResult.mt-2
+  .tab-pane.py-2.fade#des(role="tabpanel", aria-labelledby="des-tab")
+    form.mb-2(action="/jose/destruct", data-result="#desctructdResult")
+      label Signatured/Encrypted Result
+      .buildResult
+        small.text-muted Waiting for generated...
+      .keyHiddenOnly
+      #buildResultHidden
+
+      button.mt-2.btn.btn-info.btn-lg(type="submit") Verify/Decrypt
+
+    label Verified/Decrypted Result
+    #desctructdResult
+      small.text-muted Waiting for result...
+
+script
+  include ./script.js
