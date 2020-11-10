@@ -80,7 +80,7 @@ router.post('/destruct', (req, res) => {
       origin = jose.JWS.verify(result, key, { complete: true })
       origin.payload = JSON.parse(origin.payload.toString())
     }
-    res.json({ origin })
+    res.json({ ...origin })
   } catch (e) {
     res.json({ error: e.message })
   }

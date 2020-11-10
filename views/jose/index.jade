@@ -51,7 +51,7 @@ ul.nav.nav-tabs(role="tablist")
             placeholder="OCT Length")
       .col-4
         button.btn.btn-primary.btn-lg(type="submit") Generate
-    #keyResult
+    textarea.form-control.mt-2#keyResult(rows="18")
 
   .tab-pane.py-2.fade#gen(role="tabpanel", aria-labelledby="gen-tab")
     form(action="/jose/build", data-result=".buildResult", data-hidden="#buildResultHidden")

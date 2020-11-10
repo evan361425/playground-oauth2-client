@@ -20,15 +20,17 @@ $(() => {
         return;
       }
 
-      $(`${$form.data('result')}`).html(`<pre>${JSON.stringify(resp, null, 2)}</pre>`)
+      $(`${$form.data('result')}`).each((i, el) => {
+        var $el = $(el);
+        if ($el.is('textarea')) {
+          $el.val(JSON.stringify(resp, null, 2))
+        } else {
+          $el.html(`<pre>${JSON.stringify(resp, null, 2)}</pre>`)
+        }
+      })
 
       if ($form.data('hidden')) {
-        $(`${$form.data('hidden')}`).html($.map(resp, (val, key) => `
-          <input type="hidden" value="${
-            (typeof val === 'string')
-              ? val
-              : escapeHtml(JSON.stringify(val))}" name="${key}">
-        `))
+        objectToHidden($(`${$form.data('hidden')}`), resp)
       }
     })
   })
@@ -43,6 +45,15 @@ $(() => {
 
   $('#buildTypes input').on('change', function(ev) {
     $(`#build${this.value.toUpperCase()}AlgOpts`).show().siblings().hide()
+  })
+
+  $('#keyResult').on('change', function() {
+    try {
+      var data = JSON.parse(this.value);
+      objectToHidden($('.keyHiddenOnly'), data);
+    } catch (e) {
+      alert('Must be JSON format.');
+    }
   })
 
   $('#addPayload').on('click', ev => {
@@ -62,4 +73,13 @@ $(() => {
       </li>
       `)
   })
+
+  function objectToHidden($ele, data) {
+    $ele.html($.map(data, (val, key) => `
+      <input type="hidden" value="${
+        (typeof val === 'string')
+          ? val
+          : escapeHtml(JSON.stringify(val))}" name="${key}">
+    `))
+  }
 })
