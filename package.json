@@ -1,31 +1,31 @@
 {
-  "name": "test-client",
+  "name": "playground-oauth2-client",
   "version": "1.0.0",
-  "description": "test client side of oAuth2",
+  "description": "OAuth2 client side playground with jose.",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evan361425/oAuth2ClientSideTesting.git"
+    "url": "git+https://github.com/evan361425/playground-oauth2-client.git"
   },
   "keywords": [
     "auth"
   ],
-  "author": "Evan Lu <wu0dj2k7ao3@gmail.com>",
-  "license": "MIT",
+  "author": "Shueh Chou Lu <wu0dj2k7ao3@gmail.com>",
+  "license": "GNU",
   "bugs": {
     "url": "https://github.com/evan361425/oAuth2ClientSideTesting/issues"
   },
   "homepage": "https://github.com/evan361425/oAuth2ClientSideTesting#readme",
   "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
-    "jade": "^1.11.0",
-    "openid-client": "^4.2.0"
+    "cookie-parser": "1.4.*",
+    "express": "4.17.*",
+    "jade": "1.11.*",
+    "openid-client": "4.2.*"
   },
   "devDependencies": {
-    "nodemon": "^2.0.5"
+    "nodemon": "2.*"
   }
 }
