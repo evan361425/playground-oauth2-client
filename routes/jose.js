@@ -1,7 +1,7 @@
 const express = require('express');
+const jose = require('jose');
 // eslint-disable-next-line
 const router = express.Router();
-const jose = require('jose');
 
 const algorithmWithNum = ['oct', 'RSA'];
 

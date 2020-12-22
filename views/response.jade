@@ -1,27 +1,25 @@
 h1 Use <code class="h5">#{code}</code> to get token!
 
 h4 TOKEN
-pre(class="h5")= tokenSet
+pre.h5= tokenSet
 
 h4 OPENID
-pre(class="h5")= openID
-
-a(class="my-2",href="/") Go Back Home
+pre.h5= openID
 
 hr
 
-div(class="row")
-  div(class="col-12 col-sm-4")
-    div(class="card my-2")
-      div(class="card-body")
-        a(class="get-in-ajax", href="/token?token="+token) 利用token去要資料
+div.row
+  div.col-12.col-sm-4
+    div.card.my-2
+      div.card-body
+        a.get-in-ajax(href="/auth/token?token="+token) 利用token去要資料
 
-  div(class="col-12 col-sm-4")
-    div(class="card")
-      div(class="card-body")
-        a(class="get-in-ajax", href="/introspection?token="+token) 查看token
-        
-  div(class="col-12 col-sm-4")
-    div(class="card")
-      div(class="card-body")
-        a(class="get-in-ajax", href="/revoke?token="+token) 撤銷token
+  div.col-12.col-sm-4
+    div.card
+      div.card-body
+        a.get-in-ajax(href="/auth/introspection?token="+token) 查看token
+
+  div.col-12.col-sm-4
+    div.card
+      div.card-body
+        a.get-in-ajax(href="/auth/revoke?token="+token) 撤銷token

@@ -3,15 +3,18 @@ OAuth2 client side playground with jose.
 
 ## install
 
-`npm install`
+```shell
+$npm install
+```
 
 ## run
 
 ```shell
-$node app.js
+$npm run dev
 ```
 
-or run for monitor change
+Fix coding style
+
 ```shell
-$nodemon app.js
+$npm run lint
 ```

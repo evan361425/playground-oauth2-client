@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/evan361425/playground-oauth2-client#readme",
   "dependencies": {
-    "cookie-parser": "1.4.*",
     "express": "4.17.*",
+    "express-session": "^1.17.1",
     "jade": "1.11.*",
     "openid-client": "4.2.*"
   },
