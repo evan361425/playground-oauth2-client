@@ -8,18 +8,24 @@ pre.h5= openID
 
 hr
 
-div.row
-  div.col-12.col-sm-4
-    div.card.my-2
-      div.card-body
-        a.get-in-ajax(href="/auth/token?token="+token) 利用token去要資料
+.row
+  .col-12.col-sm-4.my-2
+    .card
+      .card-body
+        a.get-in-ajax(href="/auth/token") 利用token去要資料
 
-  div.col-12.col-sm-4
-    div.card
-      div.card-body
-        a.get-in-ajax(href="/auth/introspection?token="+token) 查看token
+  .col-12.col-sm-4.my-2
+    .card
+      .card-body
+        a.get-in-ajax(href="/auth/introspection") 查看token
 
-  div.col-12.col-sm-4
-    div.card
-      div.card-body
-        a.get-in-ajax(href="/auth/revoke?token="+token) 撤銷token
+  .col-12.col-sm-4.my-2
+    .card
+      .card-body
+        a.get-in-ajax(href="/auth/revoke") 撤銷token
+
+.row
+  .col-12.col-sm-4.my-2
+    .card
+      .card-body
+        a(href='/auth/logout') 登出

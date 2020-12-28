@@ -10,8 +10,8 @@ const PORT = 3000;
   app.use(layout);
   app.use(session({
     secret: 'some-random-secret-key',
-    cookie: { maxAge: 60000 },
-    resave: false,
+    cookie: { maxAge: 3600000 },
+    resave: true,
     saveUninitialized: true,
   }));
   app.use(bodyParser.urlencoded({ extended: true }));

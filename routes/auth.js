@@ -51,18 +51,24 @@ router.get('/cb/as1', (req, res) => {
   });
 });
 
+router.get('/cb/logout', (req, res) => {
+  delete req.session.auth_response;
+  res.render('logout', { session: JSON.stringify(req.session, null, 2) });
+});
+
 router.get('/response', (req, res) => {
   if (req.session.auth_response) {
+    helper.clearCodeVerifier(req);
     res.render('response', req.session.auth_response);
   } else {
     res.render('status', {
-      text: req.session.auth_error ? req.session.auth_error : 'Unknown!',
+      text: req.session.auth_error ? req.session.auth_error : 'Unknown Result Try Ask Token Again!',
     });
   }
 });
 
 router.get('/token', (req, res) => {
-  client.userinfo(req.query.token) // => Promise
+  client.userinfo(req.session.auth_response.token) // => Promise
     .then((data) => res.json(data))
     .catch((err) => {
       res.json({
@@ -72,7 +78,7 @@ router.get('/token', (req, res) => {
 });
 
 router.get('/introspection', (req, res) => {
-  client.introspect(req.query.token) // => Promise
+  client.introspect(req.session.auth_response.token) // => Promise
     .then((data) => res.json(data))
     .catch((err) => {
       res.json({
@@ -82,7 +88,7 @@ router.get('/introspection', (req, res) => {
 });
 
 router.get('/revoke', (req, res) => {
-  client.revoke(req.query.token) // => Promise
+  client.revoke(req.session.auth_response.token) // => Promise
     .then((data) => res.json({
       msg: '成功!',
     }))
@@ -91,6 +97,17 @@ router.get('/revoke', (req, res) => {
         error: err.message,
       });
     });
+});
+
+router.get('/logout', (req, res) => {
+  try {
+    const idToken = JSON.parse(req.session.auth_response.idToken);
+    res.redirect(client.endSessionUrl({
+      id_token_hint: Object.entries(idToken).map((entry) => entry[1]).join('.'),
+    }));
+  } catch (err) {
+    res.redirect('/');
+  }
 });
 
 module.exports = router;
